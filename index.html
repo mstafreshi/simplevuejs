@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<div class="container text-center mt-3">
+		<h1>{{ title }}</h1> <hr> <br>
+
+		<div>
+			<div class="row">
+				<div class="col-lg-1">
+					<label for="nombre">Nombre </label>
+				</div>
+
+				<div class="col-lg-3">
+					<input type="text" v-model="nombre" @keyup.enter="agregar" class="form-control">
+				</div>
+
+				<div class="col-lg-1">
+					<label for="cantidad">Cantidad </label>
+				</div>
+
+				<div class="col-lg-3">
+					<input type="text" v-model.number="cantidad" @keyup.enter="agregar" class="form-control">
+				</div>
+
+				<div class="col-lg-4">
+					<input type="button" @click="agregar()" value="Agregar" class="btn btn-block">
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<table class="table table-bordered table-hover table-striped text-center">
+			<thead class="bg-primary">
+				<tr>
+					<td>#</td>
+					<td>Fruta</td>
+					<td style="width:200px">Cantidad</td>
+					<td>Explicacion</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr v-for="[llave, fruta] of frutas.entries()" :class="{'bg-warning': fruta.cantidad <= 0, 'bg-white': fruta.cantidad > 0}">
+					<td>{{ llave + 1 }}</td>
+					<td>{{ fruta.nombre }}</td>
+					<td><input type="number" v-model.number="fruta.cantidad" class="form-control"></td>
+					<td><span v-if="fruta.cantidad == 0">No hay</span></td>
+					<td><button @click="fruta.cantidad++" class="btn-success">+</button></td>
+					<td><button @click="fruta.cantidad--" class="btn-success">-</button></td>
+					<td><button class="btn-danger" @click="eliminar(llave)">x</button></td>
+				</tr>
+
+				<tr class="h3">
+					<td></td>
+					<td>Suma</td>
+					<td>{{ sumar }}</td>
+					<td colspan="4"></td>					
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="01.js"></script>
+</body>
+</html>
